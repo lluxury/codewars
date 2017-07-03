@@ -1,30 +1,28 @@
-def decodeMorse(morseCode):
-	morseCode = morseCode.strip
-	morseWords = morseCode.split('   ')
-	result = ''
-	#i = 0
-	for i in range (0,len(morseWords)):
-		#i+=1
-		if i != 0:
-			result+=decodeMorseWord(morseWords[i])
-	return result
 
-decodeMorse =decodeMorse(morseCode)
+MORSE_CODE = {'.-': 'A', '-...': 'B', '-.-.': 'C', '-..': 'D', '.': 'E', '..-.': 'F','--.': 'G', '....': 'H', '..': 'I', '.---': 'J', '-.-': 'K', '.-..': 'L','--': 'M', '-.': 'N', '---': 'O', '.--.': 'P', '--.-': 'Q', '.-.': 'R','...': 'S', '-': 'T', '..-': 'U', '...-': 'V', '.--': 'W', '-..-': 'X','-.--': 'Y', '--..': 'Z','-----': '0', '.----': '1', '..---': '2', '...--': '3', '....-': '4','.....': '5', '-....': '6', '--...': '7', '---..': '8', '----.': '9','.-.-.-': '.', '--..--': ',', '..--..': '?', '.----.': "'", '-.-.--': '!','-..-.': '/', '-.--.': '(', '-.--.-': ')', '.-...': '&', '---...': ':','-.-.-.': ';', '-...-': '=', '.-.-.': '+', '-....-': '-', '..--.-': '_','.-..-.': '"', '...-..-': '$', '.--.-.': '@', '...---...': 'SOS', '_': ' '
+}
 
-# or
-
-def decodeMorseLetter(letter):
-	return MORSE_CODE[letter]
-
-def decodeMorseWord(word):
-	return word.split(' ').map(decodeMorseLetter).join('')
 
 def decodeMorse(morseCode):
-	return morseCode.trim().split('   ').map(decodeMorseWord).join(' ')
+    """
+    >>> decodeMorse('.... . -.--   .--- ..- -.. .')
+    'HEY JUDE'
+    """ 
+    word_list =morseCode.strip().split("   ")
+    a_list = []
+    
+    for word in word_list:
+        # print (word)
+        if word:
+            letter_list = word.split(" ")
+            a_word = ""
+            for letter in letter_list:
+                if letter:
+                    a_word+=MORSE_CODE[letter]
+            a_list.append(a_word)
+            # print(a_list)             
+    return " ".join(a_list)
 
 
-#对题目的理解比较困难,没有注意到3'   '和1' '的区别
-#区分词,区分字母,反回
-#没有意识到测试数据要去边,不熟悉列表的融合和分割
-#函数间数据流转不熟悉
-#思考方式有问题,用其它语言的方式来实现
+# doc只能放在函数下第一行
+# python -m doctest -v test.py
