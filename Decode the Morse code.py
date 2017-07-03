@@ -8,20 +8,7 @@ def decodeMorse(morseCode):
     >>> decodeMorse('.... . -.--   .--- ..- -.. .')
     'HEY JUDE'
     """ 
-    word_list =morseCode.strip().split("   ")
-    a_list = []
-    
-    for word in word_list:
-        # print (word)
-        if word:
-            letter_list = word.split(" ")
-            a_word = ""
-            for letter in letter_list:
-                if letter:
-                    a_word+=MORSE_CODE[letter]
-            a_list.append(a_word)
-            # print(a_list)             
-    return " ".join(a_list)
+    return ' '.join(''.join(MORSE_CODE[letter] for letter in word.split(' ')) for word in morseCode.strip().split('   '))
 
 
 # doc只能放在函数下第一行
