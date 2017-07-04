@@ -13,3 +13,4 @@ def decodeMorse(morseCode):
 
 # doc只能放在函数下第一行
 # python -m doctest -v test.py
+        
