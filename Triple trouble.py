@@ -1,16 +1,10 @@
 def triple_double(num1, num2):
     '''
-    >>> triple_double(4519979, 41177722899)
+    >>> triple_double(45199979, 41177722899)
     1
     '''
-    for x in range(10):
-        if str(x)*3 in str(num1):
-            if str(x)*2 in str(num2):
-                return 1
-    return 0
+    #return any([str(i) * 2 in num2 and str(i) * 3 in num1 for i in '0123456789'])
+    return any([i * 3 in str(num1) and i * 2 in str(num2) for i in '0123456789'])
 
-print(triple_double(45199979, 45199979))
-
-
-#用 str(x)*3的方法来表示3个连续的值, 这点要学习
-#用2阶if判断表示包容关系,只用一套变量,大大省略代码
+# 模仿昨天的解法写出的1行等式,一个范围,2阶判断的模型,反回的是逻辑值
+# 错误,'123'是字符串, num1,num2才是int, 概念不清,混淆了需要转换的对象
