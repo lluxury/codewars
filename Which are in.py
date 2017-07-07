@@ -1,11 +1,8 @@
-def in_array(array1, array2):
-    res = []
-    for a1 in array1:
-        for a2 in array2:
-            if a1 in a2 and not a1 in res:
-                res.append(a1)
-    res.sort()
-    return res
+def in_array(a1, a2):
+    return sorted({sub for sub in a1 if any(sub in s for s in a2)})
 
-# 总算接近正常答案了,不容易
-# 学到了同时对目标和结果判断的去重方式
+    # return sorted({sub for sub in a1 if 1})
+# any 传入空可迭代对象时返回False，当可迭代对象中有任意一个不为False，则返回True
+# all 传入空可迭代对象时返回True，当可迭代对象中有任意一个不为True，则返回False
+# if 真有返回,if假无返回, 真假由 ()里内容决定,对a1里的每个sub反回真,假
+# 不知道使用{}的原因,但是换掉会报错 ['duplicates', 'duplicates'] should equal ['duplicates']
