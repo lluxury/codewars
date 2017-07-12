@@ -18,3 +18,6 @@ def digital_root(n):
 # return 可以调自己, 再判断一次,<10 或处理
 # lambda x,y :int(x)+int(y) 是第一个参数,mylist是第二个
 # 这个架子很好,可以后续抄用
+ # return n if n < 10 else digital_root(sum(map(int,str(n))))
+ # 3段式语句, (return a) (if true) (else b), 
+ # map用法精彩, int方法, str(n)数列
