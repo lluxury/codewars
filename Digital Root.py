@@ -1,21 +1,16 @@
-def digital_root(n, j=0,s=1):
-    print(str(n))
-    while s:
-        #for i in '0123456789':
-        for i in str(n):
-            #if i in str(n):
-            j+=int(i)
-            #print(j)
-        if j<10:
-            s=0
-        n=j
-        j=0
+def digital_root(n):
+    '''
+    >>> digital_root(942)
+    15
+    '''
+    while n>10:
+        n = sum([int(i) for i in str(n)])
     return n
-#print(digital_root(93))
 
+# 返回结果可以用sum处理掉,省略j和开关判断
+# 这个还是用n做判断条件了,复用
+# for返回的集合由函数处理
+# return n%9 or n and 9
+# 这个属于吊人写的, 9进制运算, 优先级为%,and,or
+# and 是为了除尽准备的, 数字运算,or取前, and取后
 
-# 犯了3个错误
-# 遍历选错了对象,0-9中遍历是无穷无尽的,只在区分字母和数字时使用
-# j 没有置0 ,导致小量结果正确,大量失败
-# 不应该用n做判断,应该用开关
-# 此外还有题意理解偏差,逻辑正确但变量处理错误
