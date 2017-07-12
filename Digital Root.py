@@ -1,16 +1,20 @@
+from functools import reduce
 def digital_root(n):
     '''
     >>> digital_root(942)
     15
     '''
-    while n>10:
-        n = sum([int(i) for i in str(n)])
-    return n
+    if n < 10:
+        return n
+        
+    mylist = list(str(n))
+    sum = reduce(lambda x, y: int(x)+int(y), mylist)    
+    return digital_root(sum)
 
-# 返回结果可以用sum处理掉,省略j和开关判断
-# 这个还是用n做判断条件了,复用
-# for返回的集合由函数处理
-# return n%9 or n and 9
-# 这个属于吊人写的, 9进制运算, 优先级为%,and,or
-# and 是为了除尽准备的, 数字运算,or取前, and取后
-
+# reduce 不再是基本函数,需要导入
+# map 接收函数,序列,反回数列 map(f, [1, 2, 3, 4, 5, 6, 7, 8, 9])
+# reduce 接受函数,序列, reduce(f, [x1, x2, x3, x4]) = f(f(f(x1, x2), x3), x4)
+# 在函数内部不能调用自己,用了lambda ,把mylist的值分解相加
+# return 可以调自己, 再判断一次,<10 或处理
+# lambda x,y :int(x)+int(y) 是第一个参数,mylist是第二个
+# 这个架子很好,可以后续抄用
