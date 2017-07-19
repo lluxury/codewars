@@ -1,8 +1,9 @@
-import string
+pairs = {'A':'T','T':'A','C':'G','G':'C'}
 def DNA_strand(dna):
-    return dna.translate(string.maketrans("ATCG","TAGC"))
+    '''
+    DNA_strand("AAAA")
+    "TTTT"
+    '''
+    return ''.join([pairs[x] for x in dna])
 
-# 翻译功能和字符串的转换功能,但我不知道这2个方法的区别
-# 过滤 和翻译
-# str.maketrans(x[, y[, z]])
-# str.translate(table)
+# 标准的解法,构造一个表,用值来替代键返回
