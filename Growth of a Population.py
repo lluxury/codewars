@@ -1,9 +1,10 @@
-def nb_year(population, percent, aug, target):
-    year = 0
-    while population < target:
-        population += population * percent / 100. + aug
-        year +=1
-    return year
-nb_year(1500, 5, 100, 5000)
+def nb_year(population, percent, aug, target, years=0):
+    '''
+    >>> nb_year(1500, 5, 100, 5000)
+    15
+    '''
+    if population < target:
+        return nb_year(population + int(population * percent / 100) + aug, percent, aug, target, years+1)
+    return years
 
-# 比较标准的写法,就是不知道100.是啥意思
+# 不用while的标准处理方法, 两步return, 返回调用函数及设法构造参数,继续运算
