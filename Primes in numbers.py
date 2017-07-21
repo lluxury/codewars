@@ -1,53 +1,49 @@
-from math import sqrt
-def primeFactors(n):
-    primes=[]
-    j = 2
-    while j<= 100:
-        i=2
-        k=sqrt(j)
-        while(i<k):
-            if j%i==0:
-                break
-            i=i+1
-        if(i>k):
-            #print(j)
-            primes.append(j)
-        j=j+1
-    #print(primes)
+def primeFactors(n):    
+    class Counter(dict):
+            def __missing__(self, key):
+                return 0
+    #queue=Counter()
+    def pf(n):
+        queue=Counter()
+        f=2
+        queue[f]=0
+        while f*f<=n:
+            while not n%f:
+                yield f
+                n//=f
+                #queue[f]=0
+                queue[f]+=1
+            f+=1
+        if n>1:
+            yield n
+        #print((dict(queue)))
+        return queue
     
-
-    def eladuosai(n):
-    l = list(range(1,n+1))
-    l[0] = 0
-    for i in range(2,n+1):
-        if l[i-1] != 0 :
-            for j in range(i*2,n+1,i):
-                l[j-1] = 0
-    result = [x for x in l if x != 0]
-    return result
+    #print(list(pf(7775460)))
+    # for x in(list(pf(7775460))):
+    #     print(x)
+    mylist=list(pf(n))
+    myset=set(mylist)
+    mylist2=sorted(myset)
+    # print(mylist2)
+    # mydict={}
+    # print(myset)
+    # for item in myset:
+    #     #print(item,mylist.count(item))
+    #     mydict[item]=mylist.count(item)
+    # print(mydict)
     
-
-
-    vaule=[0]*len(primes)
-    #print(vaule)
-    result=dict(zip(primes,vaule))
-    #print(result)
-    while n > 1:
-        for m in primes:
-            while n % m==0:
-                result[m]+=1
-                n=n / m
-    #print(result)
     pp=[]
-    for x in primes:
-        if result[x]>1:
-            pp.append('('+str(x)+'**'+str(result[x])+')')
-        elif result[x]==1:
-            pp.append('('+str(x)+')')
+    for item in mylist2:
+        if mylist.count(item) > 1:
+            pp.append('('+str(item)+'**'+str(mylist.count(item))+')')
+        elif mylist.count(item) == 1:
+            pp.append('('+str(item)+')')
         else:
             continue
     #print(pp)
-    return "".join(pp)
+    return "".join(pp)  
+print(primeFactors(7775460))
 
-
-# [[filter(None, (s.__setitem__(1,0), [[s.__setitem__(j,0) for  j in xrange(i*i, n+1, i)] for  i in xrange(2, int(__import__("math").sqrt(n)) + 1)], s)[2]) for s in (list(range(n+1)),)][0] for n in [10000]][0]
+# 遇到了超时,遇到了内存溢出,算数题果然应该好好做一下
+# 写的再乱再差也是我的痕迹
