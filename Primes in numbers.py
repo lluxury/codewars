@@ -1,49 +1,31 @@
-def primeFactors(n):    
-    class Counter(dict):
-            def __missing__(self, key):
-                return 0
-    #queue=Counter()
-    def pf(n):
-        queue=Counter()
-        f=2
-        queue[f]=0
-        while f*f<=n:
-            while not n%f:
-                yield f
-                n//=f
-                #queue[f]=0
-                queue[f]+=1
-            f+=1
-        if n>1:
-            yield n
-        #print((dict(queue)))
-        return queue
-    
-    #print(list(pf(7775460)))
-    # for x in(list(pf(7775460))):
-    #     print(x)
-    mylist=list(pf(n))
-    myset=set(mylist)
-    mylist2=sorted(myset)
-    # print(mylist2)
-    # mydict={}
-    # print(myset)
-    # for item in myset:
-    #     #print(item,mylist.count(item))
-    #     mydict[item]=mylist.count(item)
-    # print(mydict)
-    
-    pp=[]
-    for item in mylist2:
-        if mylist.count(item) > 1:
-            pp.append('('+str(item)+'**'+str(mylist.count(item))+')')
-        elif mylist.count(item) == 1:
-            pp.append('('+str(item)+')')
-        else:
-            continue
-    #print(pp)
-    return "".join(pp)  
-print(primeFactors(7775460))
+from collections import Counter
 
-# 遇到了超时,遇到了内存溢出,算数题果然应该好好做一下
-# 写的再乱再差也是我的痕迹
+def fac(n):
+    # print(n)
+    maxq =int(n ** .5)
+    d, q = 1, 2+n % 2
+    while q <= maxq and n % q:
+        q = 1+ d*4 - d//2*2
+        d += 1
+    res = Counter()
+    if q <= maxq:
+        res[q] = 1
+        res += fac(n//q)
+    else: res[n] = 1
+    print(res)
+    return res
+
+def primeFactors(n):
+    return ''.join(('({})' if m == 1 else '({}**{})')
+        .format(p, m) for p, m in sorted(fac(n).items()))
+
+# 导入collections模块使用记数器功能,我字典的思路还是对的
+# q = 1+ d*4 - d//2*2 貌似是个算法,但是看不懂
+# Counter返回的是个字典? Counter 最初Counter() .. Counter({17: 1, 11: 1})
+# return的使用方法经典, 根据结果的不同,套用不同格式, 调用排序过的函数返回值组
+# while的双重条件判断, fac的自身调用构成迭代 res += fac(n//q)
+# if是独立的, 先过Counter(),primeFactors(30),fac(30),
+# maxq=5,d=1,q=2,res,if判断,返回fec(15),产生新的maxq,d,q
+# q>maxq 触发非迭代分支,开始有返回值,消除各fac()函数,返回值存Counter,迭代结果列表
+# 使用for读取排序后的迭代结果列表
+
